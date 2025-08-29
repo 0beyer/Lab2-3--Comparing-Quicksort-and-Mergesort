@@ -3,11 +3,22 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        TestInteger[] TestArr = populateRan(5);
+        TestInteger[] TestArr = populateRan(1000);
 
-        Arrays.sort(TestArr);
-        printSorted(TestArr);
-        System.out.println(isSorted(TestArr));
+        mergeSort(TestArr);
+    }
+
+    public static void mergeSort(TestInteger[] arr) {
+        Arrays.sort(arr);
+        printSorted(arr);
+    }
+
+    public static Integer returnCount(TestInteger[] arr) {
+        int n = 0;
+        for (int i = 0; i < arr.length - 1; i++) {
+            n = arr[i].counter + n;
+        }
+        return n;
     }
 
     public static boolean isSorted(TestInteger[] arr) {
@@ -23,6 +34,9 @@ public class Main {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
         }
+        System.out.println(" ");
+        System.out.println(" ");
+        System.out.println("Counts: " + returnCount(arr));
     }
 
     public static TestInteger[] populateOrd(int size) {

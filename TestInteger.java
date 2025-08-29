@@ -1,7 +1,7 @@
 class TestInteger implements Comparable<TestInteger> {
 
     private int value;
-    private static int counter = 0;
+    public int counter = 0;
 
     public TestInteger(int n) {
         value = n;
