@@ -4,7 +4,6 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
         TestInteger[] TestArr = populateRan(1000);
-
         mergeSort(TestArr);
     }
 
@@ -55,4 +54,36 @@ public class Main {
         }
         return ArrRan;
     }
+
+    public static void quickSort(TestInteger[] arr, int low, int high) {
+    if (low < high) {
+        int pivotIndex = partition(arr, low, high);
+        quickSort(arr, low, pivotIndex - 1);
+        quickSort(arr, pivotIndex + 1, high);
+    }
+}
+
+private static int partition(TestInteger[] arr, int low, int high) {
+    TestInteger pivot = arr[high]; 
+    int i = low - 1;
+
+    for (int j = low; j < high; j++) {
+        if (arr[j].compareTo(pivot) <= 0) {
+            i++;
+            swap(arr, i, j);
+        }
+    }
+    swap(arr, i + 1, high);
+    return i + 1;
+}
+
+private static void swap(TestInteger[] arr, int i, int j) {
+    TestInteger temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+
+
+
+    
 }
