@@ -5,19 +5,15 @@ public class TestSorts {
 
     @Test
     public void testOriginalQuickSort() {
-        TestInteger[] arr = Main.populateRan(1000);
-        Main.quickSort(arr, 0, arr.length - 1);
+        TestInteger[] arr = Main.newArrOrd();
+        Main.quickSort(arr);
         assertTrue(Main.isSorted(arr));
     }
 
     @Test
     public void testMergeSort() {
-        TestInteger[] arr = Main.populateRan(1000);
+        TestInteger[] arr = Main.newArrOrd();
         Main.mergeSort(arr);
         assertTrue(Main.isSorted(arr));
-    }
-
-    @Test void test() {
-        
     }
 }
