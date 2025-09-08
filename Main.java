@@ -4,21 +4,39 @@ import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
-        int size = 3;
+        int size = 1000;
 
+        System.out.println(" ");
+        System.out.println("newArrOrd Sorting:");
         mergeSort(newArrOrd(size));
         quickSort(newArrOrd(size));
         quickSortRanPiv(newArrOrd(size));
-        
-        // mergeSort(newArrRevOrd(size));
-        // quickSort(newArrRevOrd(size));
+        quickSortMedPiv(newArrOrd(size));
+        // quickSortInsSort(newArrOrd(size));
 
-        // quickSort(populateRan(new TestInteger[10*size]));
-        // mergeSort(populateRan(new TestInteger[10*size]));
+        System.out.println(" ");
+        System.out.println("newArrRevOrd Sorting:");
+        mergeSort(newArrRevOrd(size));
+        quickSort(newArrRevOrd(size));
+        quickSortRanPiv(newArrRevOrd(size));
+        quickSortMedPiv(newArrRevOrd(size));
+        // quickSortInsSort(newArrRevOrd(size));
 
-        // mergeSort(newSortedArr(10*size););
-        // quickSort(newSortedArr(10*size););
-        // 
+        System.out.println(" ");
+        System.out.println("newArrRand Sorting:");
+        mergeSort(newArrRand(size));
+        quickSort(newArrRand(size));
+        quickSortRanPiv(newArrRand(size));
+        quickSortMedPiv(newArrRand(size));
+        // quickSortInsSort(newArrRan(size));
+
+        System.out.println(" ");
+        System.out.println("newArrSort Sorting:");
+        mergeSort(newArrSort(size));
+        quickSort(newArrSort(size));
+        quickSortRanPiv(newArrSort(size));
+        quickSortMedPiv(newArrSort(size));
+        // quickSortInsSort(newArrSort(size));
 
     }
 
@@ -38,24 +56,24 @@ public class Main {
 
     public static void quickSortRanPiv(TestInteger[] arr) {
         quickSortRecursiveRanPiv(arr, 0, arr.length - 1);
-        System.out.println("QuickSort Count: " + TestInteger.getCounter());
+        System.out.println("QuickSortRanPiv Count: " + TestInteger.getCounter());
         System.out.println("Sorted: " + isSorted(arr));
         TestInteger.resetCounter();
     }
 
     public static void quickSortMedPiv(TestInteger[] arr) {
-        quickSortRecursiveRanPiv(arr, 0, arr.length - 1);
-        System.out.println("QuickSort Count: " + TestInteger.getCounter());
+        quickSortRecursiveMedPiv(arr, 0, arr.length - 1);
+        System.out.println("QuickSortMedPiv Count: " + TestInteger.getCounter());
         System.out.println("Sorted: " + isSorted(arr));
         TestInteger.resetCounter();
     }
 
-    public static void quickSortInsSort(TestInteger[] arr) {
-        quickSortRecursiveRanPiv(arr, 0, arr.length - 1);
-        System.out.println("QuickSort Count: " + TestInteger.getCounter());
-        System.out.println("Sorted: " + isSorted(arr));
-        TestInteger.resetCounter();
-    }
+    // public static void quickSortInsSort(TestInteger[] arr) {
+    //     quickSortRecursiveInsSort(arr, 0, arr.length - 1);
+    //     System.out.println("QuickSortInsSort Count: " + TestInteger.getCounter());
+    //     System.out.println("Sorted: " + isSorted(arr));
+    //     TestInteger.resetCounter();
+    // }
 
     public static boolean isSorted(TestInteger[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
@@ -67,7 +85,7 @@ public class Main {
     }
 
     public static void printArr(TestInteger[] a) {
-        for(int i = 0; i < a.length; i++) {
+        for (int i = 0; i < a.length; i++) {
             System.out.println(a[i]);
         }
     }
@@ -80,19 +98,25 @@ public class Main {
         return base;
     }
 
-    public static TestInteger[] newSortedArr(int size) {
-        TestInteger[] base = new TestInteger[size];
+    public static TestInteger[] newArrRevOrd(int size) {
+        TestInteger[] base = revOrderedArrayTemp(size);
+        for (int i = 0; i < 9; i++) {
+            base = concatenate(base, revOrderedArrayTemp(size));
+        }
+        return base;
+    }
+
+    public static TestInteger[] newArrSort(int size) {
+        TestInteger[] base = new TestInteger[10 * size];
         populateRan(base);
         Arrays.sort(base);
         TestInteger.resetCounter();
         return base;
     }
 
-    public static TestInteger[] newArrRevOrd(int size) {
-        TestInteger[] base = revOrderedArrayTemp(size);
-        for (int i = 0; i < 9; i++) {
-            base = concatenate(base, revOrderedArrayTemp(size));
-        }
+    public static TestInteger[] newArrRand(int size) {
+        TestInteger[] base = new TestInteger[10 * size];
+        populateRan(base);
         return base;
     }
 
@@ -103,7 +127,7 @@ public class Main {
         TestInteger.resetCounter();
         return base;
     }
-    
+
     public static TestInteger[] revOrderedArrayTemp(int size) {
         TestInteger[] base = new TestInteger[size];
         populateRan(base);
@@ -153,6 +177,14 @@ public class Main {
         }
     }
 
+    public static void quickSortRecursiveMedPiv(TestInteger[] arr, int low, int high) {
+        if (low < high) {
+            int pivotIndex = partitionMed(arr, low, high);
+            quickSortRecursiveMedPiv(arr, low, pivotIndex - 1);
+            quickSortRecursiveMedPiv(arr, pivotIndex + 1, high);
+        }
+    }
+
     private static int partition(TestInteger[] arr, int low, int high) {
         TestInteger pivot = arr[high];
         int i = low - 1;
@@ -168,8 +200,8 @@ public class Main {
     }
 
     private static int partitionRan(TestInteger[] arr, int low, int high) {
-        Random rand = new Random();
-        TestInteger pivot = arr[rand.nextInt(arr.length - 1)];
+        random(arr, low, high);
+        TestInteger pivot = arr[high];
         int i = low - 1;
 
         for (int j = low; j < high; j++) {
@@ -180,6 +212,57 @@ public class Main {
         }
         swap(arr, i + 1, high);
         return i + 1;
+    }
+
+    private static int partitionMed(TestInteger[] arr, int low, int high) {
+        randomMed(arr, low, high);
+        TestInteger pivot = arr[high];
+        int i = low - 1;
+
+        for (int j = low; j < high; j++) {
+            if (arr[j].compareTo(pivot) <= 0) {
+                i++;
+                swap(arr, i, j);
+            }
+        }
+        swap(arr, i + 1, high);
+        return i + 1;
+    }
+
+    static void random(TestInteger[] arr, int low, int high) {
+        Random rand = new Random();
+        int pivot = rand.nextInt(high - low) + low;
+        TestInteger temp1 = arr[pivot];
+        arr[pivot] = arr[high];
+        arr[high] = temp1;
+    }
+
+    static void randomMed(TestInteger[] arr, int low, int high) {
+        Random rand = new Random();
+        int p1 = rand.nextInt(high - low) + low;
+        int p2 = rand.nextInt(high - low) + low;
+        int p3 = rand.nextInt(high - low) + low;
+
+        int pivot = midpoint(arr, p1, p2, p3);
+        TestInteger temp1 = arr[pivot];
+        arr[pivot] = arr[high];
+        arr[high] = temp1;
+    }
+
+    static int midpoint(TestInteger[] arr, int p1, int p2, int p3) {
+        if (arr[p1].compareTo(arr[p2]) < 0) {
+            if (arr[p2].compareTo(arr[p3]) < 0 || arr[p2].compareTo(arr[p3]) == 0)
+                return p2;
+            if (arr[p1].compareTo(arr[p3]) < 0)
+                return p3;
+            return p1;
+        } else {
+            if (arr[p1].compareTo(arr[p3]) < 0 || arr[p1].compareTo(arr[p3]) == 0)
+                return p1;
+            if (arr[p2].compareTo(arr[p3]) < 0)
+                return p3;
+            return p2;
+        }
     }
 
     private static void swap(TestInteger[] arr, int i, int j) {
