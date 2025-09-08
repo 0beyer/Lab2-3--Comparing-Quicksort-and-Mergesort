@@ -4,13 +4,13 @@ import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
-        int size = 1000;
+        int size = 10000;
 
         System.out.println(" ");
         System.out.println("newArrOrd Sorting:");
         mergeSort(newArrOrd(size));
         // quickSort(newArrOrd(size));
-        // quickSortRanPiv(newArrOrd(size));
+        quickSortRanPiv(newArrOrd(size));
         quickSortMedPiv(newArrOrd(size));
         quickSortInsSort(newArrOrd(size));
 
@@ -73,6 +73,7 @@ public class Main {
 
     public static void quickSortInsSort(TestInteger[] arr) {
         quickSortRecursiveInsSort(arr, 0, arr.length - 1);
+        insertionSort(arr);
         System.out.println("QuickSortInsSort Count: " + TestInteger.getCounter());
         System.out.println("Sorted: " + isSorted(arr));
         TestInteger.resetCounter();
@@ -189,7 +190,7 @@ public class Main {
     }
 
     public static void quickSortRecursiveInsSort(TestInteger[] arr, int low, int high) {
-        if (low < high) {
+        if (low < high && high - low > 8) {
             int pivotIndex = partitionMed(arr, low, high);
             quickSortRecursiveInsSort(arr, low, pivotIndex - 1);
             quickSortRecursiveInsSort(arr, pivotIndex + 1, high);
@@ -237,7 +238,7 @@ public class Main {
         int i = low - 1;
 
         for (int j = low; j < high; j++) {
-            if (arr[j].compareTo(pivot) <= 0) {
+            if (arr[j].compareTo(pivot) < 0) {
                 i++;
                 swap(arr, i, j);
             }
@@ -247,12 +248,12 @@ public class Main {
     }
 
     private static int partitionMed(TestInteger[] arr, int low, int high) {
-        randomMed(arr, low, high);
+        randomMid(arr, low, high);
         TestInteger pivot = arr[high];
         int i = low - 1;
 
         for (int j = low; j < high; j++) {
-            if (arr[j].compareTo(pivot) <= 0) {
+            if (arr[j].compareTo(pivot) < 0) {
                 i++;
                 swap(arr, i, j);
             }
@@ -269,7 +270,7 @@ public class Main {
         arr[high] = temp1;
     }
 
-    static void randomMed(TestInteger[] arr, int low, int high) {
+    static void randomMid(TestInteger[] arr, int low, int high) {
         Random rand = new Random();
         int p1 = rand.nextInt(high - low) + low;
         int p2 = rand.nextInt(high - low) + low;
@@ -283,15 +284,15 @@ public class Main {
 
     static int midpoint(TestInteger[] arr, int p1, int p2, int p3) {
         if (arr[p1].compareTo(arr[p2]) < 0) {
-            if (arr[p2].compareTo(arr[p3]) < 0 || arr[p2].compareTo(arr[p3]) == 0)
+            if (arr[p2].compareTo(arr[p3]) <= 0)
                 return p2;
             if (arr[p1].compareTo(arr[p3]) < 0)
                 return p3;
             return p1;
         } else {
-            if (arr[p1].compareTo(arr[p3]) < 0 || arr[p1].compareTo(arr[p3]) == 0)
+            if (arr[p1].compareTo(arr[p3]) <= 0)
                 return p1;
-            if (arr[p2].compareTo(arr[p3]) < 0)
+            if (arr[p2].compareTo(arr[p3]) <= 0)
                 return p3;
             return p2;
         }
