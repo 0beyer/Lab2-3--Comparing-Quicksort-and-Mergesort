@@ -9,36 +9,37 @@ public class Main {
         System.out.println(" ");
         System.out.println("newArrOrd Sorting:");
         mergeSort(newArrOrd(size));
-        quickSort(newArrOrd(size));
-        quickSortRanPiv(newArrOrd(size));
+        // quickSort(newArrOrd(size));
+        // quickSortRanPiv(newArrOrd(size));
         quickSortMedPiv(newArrOrd(size));
-        // quickSortInsSort(newArrOrd(size));
+        quickSortInsSort(newArrOrd(size));
 
-        System.out.println(" ");
-        System.out.println("newArrRevOrd Sorting:");
-        mergeSort(newArrRevOrd(size));
-        quickSort(newArrRevOrd(size));
-        quickSortRanPiv(newArrRevOrd(size));
-        quickSortMedPiv(newArrRevOrd(size));
-        // quickSortInsSort(newArrRevOrd(size));
+        // System.out.println(" ");
+        // System.out.println("newArrRevOrd Sorting:");
+        // mergeSort(newArrRevOrd(size));
+        // quickSort(newArrRevOrd(size));
+        // quickSortRanPiv(newArrRevOrd(size));
+        // quickSortMedPiv(newArrRevOrd(size));}
+        // // quickSortInsSort(newArrRevOrd(size));
 
-        System.out.println(" ");
-        System.out.println("newArrRand Sorting:");
-        mergeSort(newArrRand(size));
-        quickSort(newArrRand(size));
-        quickSortRanPiv(newArrRand(size));
-        quickSortMedPiv(newArrRand(size));
-        // quickSortInsSort(newArrRan(size));
+        // System.out.println(" ");
+        // System.out.println("newArrRand Sorting:");
+        // mergeSort(newArrRand(size));
+        // quickSort(newArrRand(size));
+        // quickSortRanPiv(newArrRand(size));
+        // quickSortMedPiv(newArrRand(size));
+        // // quickSortInsSort(newArrRan(size));
 
-        System.out.println(" ");
-        System.out.println("newArrSort Sorting:");
-        mergeSort(newArrSort(size));
-        quickSort(newArrSort(size));
-        quickSortRanPiv(newArrSort(size));
-        quickSortMedPiv(newArrSort(size));
-        // quickSortInsSort(newArrSort(size));
+        // System.out.println(" ");}
+        // System.out.println("newArrSort Sorting:");
+        // mergeSort(newArrSort(size));
+        // quickSort(newArrSort(size));
+        // quickSortRanPiv(newArrSort(size));
+        // quickSortMedPiv(newArrSort(size));
+        // // quickSortInsSort(newArrSort(size));
 
     }
+        
 
     public static void mergeSort(TestInteger[] arr) {
         Arrays.sort(arr);
@@ -61,6 +62,8 @@ public class Main {
         TestInteger.resetCounter();
     }
 
+    
+        
     public static void quickSortMedPiv(TestInteger[] arr) {
         quickSortRecursiveMedPiv(arr, 0, arr.length - 1);
         System.out.println("QuickSortMedPiv Count: " + TestInteger.getCounter());
@@ -68,12 +71,12 @@ public class Main {
         TestInteger.resetCounter();
     }
 
-    // public static void quickSortInsSort(TestInteger[] arr) {
-    //     quickSortRecursiveInsSort(arr, 0, arr.length - 1);
-    //     System.out.println("QuickSortInsSort Count: " + TestInteger.getCounter());
-    //     System.out.println("Sorted: " + isSorted(arr));
-    //     TestInteger.resetCounter();
-    // }
+    public static void quickSortInsSort(TestInteger[] arr) {
+        quickSortRecursiveInsSort(arr, 0, arr.length - 1);
+        System.out.println("QuickSortInsSort Count: " + TestInteger.getCounter());
+        System.out.println("Sorted: " + isSorted(arr));
+        TestInteger.resetCounter();
+    }
 
     public static boolean isSorted(TestInteger[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
@@ -184,6 +187,35 @@ public class Main {
             quickSortRecursiveMedPiv(arr, pivotIndex + 1, high);
         }
     }
+
+    public static void quickSortRecursiveInsSort(TestInteger[] arr, int low, int high) {
+        if (low < high) {
+            int pivotIndex = partitionMed(arr, low, high);
+            quickSortRecursiveInsSort(arr, low, pivotIndex - 1);
+            quickSortRecursiveInsSort(arr, pivotIndex + 1, high);
+        }
+        else {
+            return;
+        }
+        // insertionSort(arr);
+    }
+
+    public static void insertionSort(TestInteger[] arr) {
+    
+        int n = arr.length;
+        for (int i = 1; i < n; ++i) {
+            TestInteger key = arr[i];
+            int j = i - 1;
+
+            while (j >= 0 && arr[j].compareTo(key) > 0) {
+                arr[j + 1] = arr[j];
+                j = j - 1;
+            }
+            arr[j + 1] = key;
+        }
+    }
+
+  
 
     private static int partition(TestInteger[] arr, int low, int high) {
         TestInteger pivot = arr[high];
