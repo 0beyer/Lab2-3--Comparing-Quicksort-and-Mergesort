@@ -1,0 +1,21 @@
+SORT OBSERVATIONS
+
+for 10000 large arrays, the table below has print count of the algorithms
+
+_____________________________________________________________
+| algo\array   | arrOrd  | arrayRevOrd | arrRand | arrSort  |
+| Merge        | 45971   | 46128       | 120390  | 9999     |
+| Quick        | 5053406 | 1125989     | 161705  | 49995000 |
+| QuickRanPiv  | 152157  | 153260      | 153354  | 157170   |
+| QuickMidPiv  | 137568  | 138976      | 148892  | 145395   |
+| QuickInsSort | 147247  | 147593      | 147449  | 142562   |
+
+The fastest algorithm used (not counting merge), was QuickMidPiv in general
+
+the table above shows how different algorithms work on different types of datasets, some 
+interesting observations are: the efficiency difference between a random pivot and a set 
+pivot ranged from 1.06-333x increase in efficiency for datasets. the addition of a 
+randomized pivots also eliminated the worst case for QuickSort in fixed pivot.
+
+despite QuickInsSort being a "optimization", in practice, i found it to be wildly
+inconsistent. while it was occasionally more efficient, it generally was slower.
