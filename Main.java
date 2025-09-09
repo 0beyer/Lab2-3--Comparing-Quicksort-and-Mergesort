@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.Stream;
 
-public class Main {
+public class Main { // Owen and Muhatir
     public static void main(String[] args) {
         int size = 1000;
 
